@@ -21,13 +21,13 @@ print(np.power(score, 2))
 
 m = len(score)
 x0 = np.ones(m, dtype=np.float128)
-# X = np.array([x0, score, np.pow(score, 2)], dtype=np.float128).T
-X = np.array([x0, score, np.sqrt(score)], dtype=np.float128).T
+X = np.array([x0, score, np.power(score, 2)], dtype=np.float128).T
+# X = np.array([x0, score, np.sqrt(score)], dtype=np.float128).T
 
 # Initial Coefficients
 B = np.array([0, 0, 0], dtype=np.float128)
 Y = np.array(grade, dtype=np.float128)
-alpha = 0.0001
+alpha = 0.0000001
 
 def cost_function(X, Y, B):
     m = len(Y)
@@ -40,7 +40,7 @@ print("Initial cost",inital_cost)
 def gradient_descent(X, Y, B, alpha, iterations):
     cost_history = [0] * iterations
     m = len(Y)
-    
+
     for iteration in range(iterations):
         # Hypothesis Values
         h = X.dot(B)
@@ -53,11 +53,11 @@ def gradient_descent(X, Y, B, alpha, iterations):
         # New Cost Value
         cost = cost_function(X, Y, B)
         cost_history[iteration] = cost
-        
+
     return B, cost_history
 
 # 100000 Iterations
-newB, cost_history = gradient_descent(X, Y, B, alpha, 1000)
+newB, cost_history = gradient_descent(X, Y, B, alpha, 10000)
 
 # New Values of B
 print("Founded weights",newB)
@@ -67,10 +67,10 @@ print("Final cost",cost_history[-1])
 
 
 # draw linear regression
-# def linreg(x):
-#     return newB[0] + newB[1] * x + newB[2] * np.sqrt(x)
+def linreg(x):
+    return newB[0] + newB[1] * x + newB[2] * np.sqrt(x)
 
-# x = np.arange(0, 100, 1)
-# plt.scatter(score, grade)
-# plt.plot(x, linreg(x), 'r')
-# plt.show()
+x = np.arange(0, 100, 1)
+plt.scatter(score, grade)
+plt.plot(x, linreg(x), 'r')
+plt.show()
