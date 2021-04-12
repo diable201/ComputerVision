@@ -20,17 +20,18 @@ print(np.power(score, 2))
 # plt.show()
 
 m = len(score)
-x0 = np.ones(m)
-X = np.array([x0, score, np.power(score,2)]).T
+x0 = np.ones(m, dtype=np.float128)
+# X = np.array([x0, score, np.pow(score, 2)], dtype=np.float128).T
+X = np.array([x0, score, np.sqrt(score)], dtype=np.float128).T
 
 # Initial Coefficients
-B = np.array([0, 0, 0])
-Y = np.array(grade)
+B = np.array([0, 0, 0], dtype=np.float128)
+Y = np.array(grade, dtype=np.float128)
 alpha = 0.0001
 
 def cost_function(X, Y, B):
     m = len(Y)
-    J = np.sum((X.dot(B) - Y) ** 2)/(2 * m)
+    J = np.sum((X.dot(B) - Y) ** 2, dtype=np.float128)/(2 * m)
     return J
 
 inital_cost = cost_function(X, Y, B)
