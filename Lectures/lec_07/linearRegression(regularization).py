@@ -20,18 +20,18 @@ print(np.power(score, 2))
 # plt.show()
 
 m = len(score)
-x0 = np.ones(m, dtype=np.float128)
-X = np.array([x0, score, np.power(score, 2)], dtype=np.float128).T
+x0 = np.ones(m)
+X = np.array([x0, score, np.power(score, 2)]).T
 # X = np.array([x0, score, np.sqrt(score)], dtype=np.float128).T
 
 # Initial Coefficients
-B = np.array([0, 0, 0], dtype=np.float128)
-Y = np.array(grade, dtype=np.float128)
+B = np.array([0, 0, 0])
+Y = np.array(grade)
 alpha = 0.0000001
 
 def cost_function(X, Y, B):
     m = len(Y)
-    J = np.sum((X.dot(B) - Y) ** 2, dtype=np.float128)/(2 * m)
+    J = np.sum((X.dot(B) - Y) ** 2)/(2 * m)
     return J
 
 inital_cost = cost_function(X, Y, B)
@@ -57,7 +57,7 @@ def gradient_descent(X, Y, B, alpha, iterations):
     return B, cost_history
 
 # 100000 Iterations
-newB, cost_history = gradient_descent(X, Y, B, alpha, 10000)
+newB, cost_history = gradient_descent(X, Y, B, alpha, 100000)
 
 # New Values of B
 print("Founded weights",newB)
@@ -68,7 +68,7 @@ print("Final cost",cost_history[-1])
 
 # draw linear regression
 def linreg(x):
-    return newB[0] + newB[1] * x + newB[2] * np.sqrt(x)
+    return newB[0] + newB[1] * x + newB[2] * np.power(x, 2)
 
 x = np.arange(0, 100, 1)
 plt.scatter(score, grade)

@@ -38,7 +38,7 @@ print("Initial cost",inital_cost)
 def gradient_descent(X, Y, B, alpha, iterations):
     cost_history = [0] * iterations
     m = len(Y)
-    
+
     for iteration in range(iterations):
         # Hypothesis Values
         h = X.dot(B)
@@ -51,7 +51,7 @@ def gradient_descent(X, Y, B, alpha, iterations):
         # New Cost Value
         cost = cost_function(X, Y, B)
         cost_history[iteration] = cost
-        
+
     return B, cost_history
 
 # 100000 Iterations
